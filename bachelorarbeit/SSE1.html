@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE1</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+<div id="all">
+
+<section id="diagram">
+    <canvas id="example-canvas" width="700" height="700"></canvas>
+
+    <div id="hoverContainer">    
+        <div id="optionsArrow" onclick="showOptionsBox()">▼</div>    
+        <div id="minmaxoptionsBox">
+            <h2 id="selectMinMaxHeader" class="timeRangeMinMax">Select For Min And Max</h2>
+            <label> 
+                <input id="currentTimeRange" type="radio" name="timeRange" class="timeRangeMinMax" value="current"> Current Time Range
+            </label>
+            <br>
+            <label >
+                <input id="completeTimeRange" type="radio" name="timeRange" class="timeRangeMinMax" value="all" checked> Complete Time Range
+            </label>
+        </div>
+    </div>
+    
+</section>
+
+<section id="right">
+
+    <div id="menubar">
+        <div id="sensor_section_menubar" class="menu-option active" onclick="switchMenu('sensor_section')">Sensors</div>
+        <div id="timebar_section_menubar" class="menu-option" onclick="switchMenu('timebar_section')">Time Bar</div>
+
+    </div>
+
+    <div id="sensor_section">
+    <div id="sensor_classes">
+        <div id="group1" class="group" >
+        <template id="group_bar">
+            <div class="bar" id="groupX_bar" onmouseover="hoverClassBar(this)" onmouseleave="leaveClassBar(this)">
+                <input class="groups_checkbox" type="checkbox" id="groupX_checkbox" checked = "unchecked" onclick="clickingGroupCheckbox(this)">
+                <input type="text" placeholder="group name" id="groupX_name">
+                <div class="group_arrow" id="groupX_arrow" onclick="clickingGroupArrow(this)">▼</div>
+            </div>
+        </template>
+
+        <template id="sensors_template">
+            <div class="sensor_div is-idle" id="sensor_div" data-groupNumber="1" data-hovered="false" onmouseover="hoverSensorLabel(this)" onmouseleave="leaveSensorLabel(this)">          
+                <input type="checkbox" class="sensor_checkbox movable" id="sensor_check" checked="checked">
+                <label class="sensor_label movable" id="sensor_label"></label>
+                <label class="sensor_label movable minmaxcur" id="sensor_minmaxcur"></label>      
+                <div class="drag-handle movable"></div>
+            </div>
+        </template>
+        
+        </div>
+    </div>
+    
+    <div id="plus_div">
+        <button id="plus_button" onclick="clickingPlusButton()"></button>
+        <button id="minus_button" onclick="clickingMinusButton()"></button>
+    </div>
+</div>
+
+    <div id="timebar_section">
+    <div id="active_timeline">
+        <div class="timerange_container">
+            <div class="sliders_control">
+                <input class="startSlider" id="startSlider" type="range" value="0" min="0" max="1">
+                <input class="endSlider" id="endSlider" type="range" value="1" min="0" max="1">
+            </div>
+            <div class="form_control">
+                <div class="form_control_container">
+                    <div class="form_control_container_time">Start</div>
+                    <input class="form_control_container_time_input" type="number" id="startInput" value="0" min="0" max="1"/>
+                </div>
+                <div class="form_control_container">
+                    <div class="form_control_container_time">End</div>
+                    <input class="form_control_container_time_input" type="number" id="endInput" value="1" min="0" max="1"/>
+                </div>
+            </div>
+        </div>
+        <div class="timerbutton_container">
+            <button class="timebutton" onclick="clickingSaveButton()">Save</button>
+            <br>
+            <button class="timebutton" onclick="clickingLiveButton()" id="liveButton">Live</button>
+        </div>
+    </div>
+
+    <div id="saved_timelines">
+        <template id="savedTimebarsTemplate">
+            <div class="savedTemplate">
+            <div class="savedTimerange_container" onclick="useTemplate(this)">
+                <div class="form_control">
+                    <div class="form_control_container" style="margin-right: 20px;">
+                        <div class="form_control_container_time">Start</div>
+                        <input class="form_control_container_time_input savedStartInput" type="number" id="savedStartInput" value="0" min="0" max="1" readonly/>
+                    </div>
+                    <div class="form_control_container">
+                        <div class="form_control_container_time">End</div>
+                        <input class="form_control_container_time_input savedEndInput" type="number" id="savedEndInput" value="1" min="0" max="1" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="timerbutton_container">
+                <button class="timebutton" onclick="clickingDeleteButton(this)">Delete</button>
+            </div>
+            <br>
+        </div>        
+        </template>
+    </div>
+</div> 
+
+</section>
+
+
+    
+
+
+
+
+</div>
+
+
+<script src="SSE_JS_Communication.js"></script>
+<script src="gr-latest.js"></script>
+<script src="sensor_classes.js"></script>
+
+<script src="moving_labels.js"></script>
+<script src="timebar.js"></script>
+<script src="PlottingOfDiagram.js"></script>
+
+
+
+
+</body>
+</html>
